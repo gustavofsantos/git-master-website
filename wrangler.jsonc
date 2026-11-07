@@ -1,6 +1,6 @@
 {
   // Product site: static assets only, no Worker code.
-  // install.sh is copied into public/ by the deploy workflow (single source: git-master).
+  // install.sh is committed in public/ (copied from the git-master repo).
   "name": "gitmaster-site",
   "compatibility_date": "2026-11-01",
   "assets": { "directory": "./public" },
