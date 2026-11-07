@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitMaster — Free, open source Git client in Rust</title>
+<meta name="description" content="GitMaster is a free, open source Git client written in Rust, built for the age of AI agents.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  header.nav { position: sticky; top: 0; z-index: 10; background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+  .nav .wrap { display: flex; align-items: center; gap: 24px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--strong); text-decoration: none; }
+  .brand svg { width: 28px; height: 28px; }
+  .nav nav { display: flex; gap: 20px; margin-left: auto; align-items: center; font-size: .92rem; }
+  .nav nav a { color: var(--muted); text-decoration: none; } .nav nav a:hover { color: var(--strong); }
+  .tbtn { border: 1px solid var(--border); background: var(--bg); border-radius: 8px; width: 34px; height: 34px; }
+  @media (max-width: 720px) { .nav nav a.hide-s { display: none; } }
+
+  .hero { text-align: center; padding: 72px 0 40px; }
+  .pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; }
+  .pill { display: inline-flex; align-items: center; gap: 7px; padding: 4px 12px; border: 1px solid var(--border); border-radius: 99px; background: var(--bg-hl); font-size: .85rem; color: var(--strong); font-weight: 500; }
+  .pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); } .pill:nth-child(2) i { background: var(--blue); } .pill:nth-child(3) i { background: var(--signature); }
+  h1 { font-size: clamp(2.2rem, 5.4vw, 4rem); line-height: 1.06; letter-spacing: -.03em; margin: 0 auto 18px; max-width: 14ch; color: var(--strong); font-weight: 650; }
+  .lede { font-size: 1.2rem; color: var(--muted); max-width: 46rem; margin: 0 auto 28px; }
+  .cta { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .install { max-width: 620px; margin: 22px auto 0; }
+  .sub { color: var(--muted); font-size: .85rem; margin-top: 10px; }
+  .hero-demo { margin-top: 48px; text-align: left; }
+
+  section { padding: 84px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 14px; color: var(--strong); font-weight: 650; }
+  .kicker { font: 600 .75rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; display: block; }
+  .row2 { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
+  .row2.flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } .row2.flip .txt { order: 2; }
+  @media (max-width: 920px) { .row2, .row2.flip { grid-template-columns: 1fr; gap: 28px; } .row2.flip .txt { order: 0; } }
+  .txt p { color: var(--muted); font-size: 1.05rem; margin: 0 0 14px; }
+  .txt ul { padding: 0; list-style: none; margin: 18px 0 0; display: grid; gap: 8px; }
+  .txt li { padding-left: 22px; position: relative; color: var(--fg); font-size: .98rem; } .txt li::before { content: "›"; position: absolute; left: 4px; color: var(--blue); font-weight: 700; }
+
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px; }
+  @media (max-width: 860px) { .trio { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--border); border-radius: 14px; padding: 26px; background: var(--bg-hl); }
+  .card .big { font: 600 2.4rem/1 var(--mono); color: var(--strong); letter-spacing: -.04em; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 6px; color: var(--strong); font-size: 1.1rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .95rem; }
+  .trust { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 40px; margin: 30px 0 0; padding: 0; list-style: none; }
+  @media (max-width: 720px) { .trust { grid-template-columns: 1fr; } }
+  .trust li { padding: 14px 0; border-top: 1px solid var(--border); } .trust b { color: var(--strong); display: block; } .trust span { color: var(--muted); font-size: .95rem; }
+  footer { border-top: 1px solid var(--border); padding: 36px 0 60px; color: var(--muted); font-size: .9rem; } footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; } footer a { color: var(--muted); } footer .sp { flex: 1; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="0 0 512 512"><rect width="512" height="512" rx="116" fill="#1a1918"/><path d="M136 244 L256 180 L376 244" fill="none" stroke="#faf8f4" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/><path d="M136 334 L256 270 L376 334" fill="none" stroke="#64b2ff" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/><path d="M136 424 L256 360 L376 424" fill="none" stroke="#b89fff" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/><circle cx="256" cy="100" r="34" fill="#f54e00"/></symbol></svg>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#"><svg><use href="#logo"/></svg>GitMaster</a>
+  <nav aria-label="Primary">
+    <a class="hide-s" href="#loop">Review loop</a><a class="hide-s" href="#stacks">Stacks</a><a class="hide-s" href="#threads">Threads</a><a class="hide-s" href="#open">Open source</a>
+    <a href="https://docs.gitmaster.dev/">Docs</a><a href="https://github.com/gustavofsantos/git-master">GitHub</a>
+    <button class="tbtn" data-theme-toggle aria-label="Toggle light and dark theme">◐</button>
+  </nav>
+</div></header>
+
+<main>
+<div class="wrap">
+  <div class="hero">
+    <div class="pills"><span class="pill"><i></i>Free</span><span class="pill"><i></i>Open source · Apache-2.0</span><span class="pill"><i></i>Written in Rust</span></div>
+    <h1>The Git client for the age of AI agents.</h1>
+    <p class="lede">Let agents write code and stay accountable for it. The agent proposes, you approve, and GitMaster records what really happened. Native, fast, and local-first.</p>
+    <div class="cta"><a class="btn primary" href="#install">Install GitMaster</a><a class="btn" href="https://github.com/gustavofsantos/git-master">★ View source on GitHub</a></div>
+    <div class="install" id="install"><div class="term"><span class="p">$</span><code id="cmd">curl -fsSL https://gitmaster.dev/install.sh | sh</code><button data-copy="#cmd">copy</button></div>
+    <div class="sub">Linux x86_64 and arm64. On macOS, <a href="https://docs.gitmaster.dev/getting-started/installation/">build from source</a>. Only needs <code>git</code>. No account.</div></div>
+    <div class="hero-demo" id="loop"><div data-demo="review"></div></div>
+  </div>
+</div>
+
+<section id="stacks"><div class="wrap row2">
+  <div class="txt"><span class="kicker">Stacked branches · preview</span><h2>Small branches that stay stacked.</h2>
+    <p>Break a large change into a stack of reviewable branches. When the base moves, GitMaster shows exactly which ones fell behind and restacks them with an exact plan and an atomic undo.</p>
+    <ul><li>Each branch has one parent; the sidebar shows the tree</li><li>Stale edges show up right in the history graph</li><li>Drag a branch onto another to set its parent</li></ul></div>
+  <div data-demo="stacks"></div>
+</div></section>
+
+<section id="threads"><div class="wrap row2 flip">
+  <div data-demo="threads"></div>
+  <div class="txt"><span class="kicker">Agent threads</span><h2>Find out why, weeks later.</h2>
+    <p>Every Claude Code session becomes a searchable thread: what was asked, what changed, which files were edited. Stored inside your repository's <code>.git</code>, never in your working tree.</p>
+    <ul><li>Search every prompt, reply and tool call</li><li>Open an agent's edit as a diff</li><li>Link a thread to the commit it produced</li></ul></div>
+</div></section>
+
+<section id="staging"><div class="wrap row2">
+  <div class="txt"><span class="kicker">A complete Git client</span><h2>Stage the exact lines you mean.</h2>
+    <p>Working Copy, history graph, branches, worktrees, conflicts and a command palette, all without waiting for the UI. Stage per file, per chunk, per line, and keep track of what you have actually read.</p>
+    <ul><li>Warns when half of a replacement is staged</li><li>Keyboard first: <code>Ctrl+K</code> reaches every action</li><li>Long lists stay smooth; nothing blocks while Git works</li></ul></div>
+  <div data-demo="staging"></div>
+</div></section>
+
+<section id="open"><div class="wrap">
+  <span class="kicker">Free, open, native</span><h2>No account. No server. No catch.</h2>
+  <p class="lede" style="margin:0;text-align:left;max-width:40rem">GitMaster is free software. You can read it, build it, and change it.</p>
+  <div class="trio">
+    <div class="card"><div class="big">$0</div><h3>Free</h3><p>No trial, no tiers, no sign-up. Install it and open a repository.</p></div>
+    <div class="card"><div class="big">Apache-2.0</div><h3>Open source</h3><p>Read every line on GitHub. Contributions welcome.</p></div>
+    <div class="card"><div class="big">100% Rust</div><h3>Native, not Electron</h3><p>Built on GPUI and libgit2. One binary, instant startup, no JavaScript front end.</p></div>
+  </div>
+  <ul class="trust">
+    <li><b>Local-first</b><span>Your code and history never leave your machine.</span></li>
+    <li><b>Never touches your working tree</b><span>No config files dropped into your repositories.</span></li>
+    <li><b>Plain Git underneath</b><span>What you see is your repository, not a proprietary layer.</span></li>
+    <li><b>Observed, not self-reported</b><span>The app measures what an agent changed instead of trusting its summary.</span></li>
+  </ul>
+</div></section>
+</main>
+<footer><div class="wrap"><a class="brand" href="#"><svg><use href="#logo"/></svg>GitMaster</a><span>Apache-2.0 licensed</span><span class="sp"></span><a href="https://docs.gitmaster.dev/">Docs</a><a href="https://github.com/gustavofsantos/git-master">GitHub</a><a href="https://github.com/gustavofsantos/git-master/releases">Releases</a></div></footer>
+<script src="assets/demos.js"></script>
+</body>
+</html>

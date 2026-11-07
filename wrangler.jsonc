@@ -1,0 +1,11 @@
+{
+  // Product site: static assets only, no Worker code.
+  // install.sh is copied into public/ by the deploy workflow (single source: git-master).
+  "name": "gitmaster-site",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./public" },
+  "routes": [
+    { "pattern": "gitmaster.dev", "custom_domain": true },
+    { "pattern": "www.gitmaster.dev", "custom_domain": true }
+  ]
+}

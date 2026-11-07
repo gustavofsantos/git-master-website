@@ -1,0 +1,35 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  # Run by hand, or from git-master when install.sh changes.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # install.sh has one source: the app repository. Fetch the latest release tag's copy
+      # so `curl https://gitmaster.dev/install.sh | sh` matches the published binaries.
+      - name: Add install.sh
+        run: |
+          tag=$(gh api repos/gustavofsantos/git-master/releases/latest --jq .tag_name)
+          curl -fsSL "https://raw.githubusercontent.com/gustavofsantos/git-master/${tag}/install.sh" -o public/install.sh
+          head -1 public/install.sh | grep -q '^#!' 
+        env:
+          GH_TOKEN: ${{ github.token }}
+      # Needs the repository secrets CLOUDFLARE_API_TOKEN (Workers Scripts: Edit) and CLOUDFLARE_ACCOUNT_ID.
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
