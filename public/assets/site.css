@@ -153,3 +153,62 @@ svg.graph .node { stroke: var(--bg); stroke-width: 1.5; }
 .term .p { color: #716f68; user-select: none; } .term code { flex: 1; white-space: nowrap; }
 .term button { border: 1px solid #393833; background: #272623; color: #d2cfc5; border-radius: 6px; padding: 2px 10px; font: 12px var(--mono); }
 .term button:hover { background: #393833; }
+
+/* ---------- Walkthroughs: real terminal screens recorded from the app ---------- */
+.wt { display: grid; gap: 18px; }
+.wt-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 900px) { .wt-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.wt-tabs button { text-align: left; border: 1px solid var(--border); background: var(--bg); border-radius: 12px; padding: 12px 14px; display: grid; gap: 4px; transition: border-color .15s, background .15s; }
+.wt-tabs button:hover { background: var(--bg-hl); }
+.wt-tabs button[aria-selected="true"] { border-color: var(--blue); background: color-mix(in oklab, var(--blue) 8%, var(--bg)); box-shadow: inset 0 0 0 1px var(--blue); }
+.wt-tabs .wk { font: 600 .7rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
+.wt-tabs .wn { font-size: .92rem; line-height: 1.3; color: var(--strong); font-weight: 600; }
+.wt-sum { margin: 0; color: var(--muted); font-size: 1.02rem; }
+.wt-grid { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 980px) { .wt-grid { grid-template-columns: 1fr; } }
+.wt-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: s; }
+@media (max-width: 980px) { .wt-steps { display: flex; flex-wrap: wrap; gap: 6px; } .wt-steps span { display: none; } .wt-steps button { padding: 4px 10px; } }
+.wt-steps button { width: 100%; text-align: left; display: flex; gap: 10px; align-items: baseline; border: 0; background: transparent; border-radius: 8px; padding: 7px 10px; color: var(--muted); font-size: .9rem; line-height: 1.35; }
+.wt-steps button:hover { background: var(--bg-hl); color: var(--fg); }
+.wt-steps button b { font: 500 .75rem/1 var(--mono); color: var(--faint); min-width: 1.4em; }
+.wt-steps button[aria-current="step"] { background: var(--strong); color: var(--bg); }
+.wt-steps button[aria-current="step"] b { color: var(--bg); opacity: .65; }
+.wt-stage { min-width: 0; display: grid; gap: 12px; }
+.wt-foot { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; }
+.wt-cap { margin: 0; flex: 1 1 380px; min-height: 3.2em; color: var(--fg); font-size: .98rem; display: flex; align-items: center; }
+.wt-cap > span { display: block; }
+.wt-cap strong { color: var(--strong); }
+.wt-ctl { display: flex; align-items: center; gap: 8px; }
+.wt-n { font: .8rem var(--mono); color: var(--muted); min-width: 4.5em; text-align: center; }
+
+/* The terminal is dark in both themes, like the install command. ANSI colors use the dark palette. */
+.tty { --t-bg: #141312; --t-fg: #d2cfc5; --t-dim: #8a877f; --t-strong: #faf8f4;
+  container-type: inline-size; background: var(--t-bg); color: var(--t-fg); border: 1px solid #393833; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.tty-bar { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: #201f1d; border-bottom: 1px solid #393833; }
+.tty-bar i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+.tty-bar i:nth-child(1) { background: #ff8b90; } .tty-bar i:nth-child(2) { background: #d3a82d; } .tty-bar i:nth-child(3) { background: #64c175; }
+.tty-bar .t { margin-left: 8px; color: var(--t-dim); font: 12px var(--mono); }
+.tty-bar .sp { flex: 1; }
+.tty-bar .chip.plain { background: #272623; color: #9d9b92; border-color: #393833; }
+.tty-screen { --cols: 100; --rows: 30; margin: 0; padding: 12px 14px; overflow-x: auto;
+  font-family: var(--mono); line-height: 1.4; white-space: pre; tab-size: 8; font-variant-ligatures: none; font-feature-settings: "calt" 0, "liga" 0;
+  font-size: clamp(8.5px, calc((100cqw - 30px) / (var(--cols) * 0.61)), 14px);
+  height: calc(var(--rows) * 1.4em + 24px); }
+.tty-screen .r { display: block; min-width: calc(var(--cols) * 1ch); }
+.tty-screen .r.cur { background: #2b3644; }
+.tty-screen .r.cur .rv { background: transparent; color: inherit; }
+.tty-screen .rv { background: var(--t-fg); color: var(--t-bg); }
+.tty-screen .bo { font-weight: 700; color: var(--t-strong); }
+.tty-screen .dm { opacity: .65; } .tty-screen .it { font-style: italic; } .tty-screen .un { text-decoration: underline; }
+.tty-screen .f0 { color: #3a3936; } .tty-screen .f1, .tty-screen .f9 { color: #ff8b90; } .tty-screen .f2, .tty-screen .f10 { color: #64c175; }
+.tty-screen .f3, .tty-screen .f11 { color: #d3a82d; } .tty-screen .f4, .tty-screen .f12 { color: #64b2ff; } .tty-screen .f5, .tty-screen .f13 { color: #b89fff; }
+.tty-screen .f6, .tty-screen .f14 { color: #00c0c0; } .tty-screen .f7 { color: var(--t-fg); } .tty-screen .f8 { color: #7d7a72; } .tty-screen .f15 { color: var(--t-strong); }
+.tty-screen .b1 { background: #5a2a2e; } .tty-screen .b2 { background: #1f3d27; } .tty-screen .b4 { background: #1d3550; } .tty-screen .b8 { background: #2a2927; }
+
+.wt-agent { border: 1px solid var(--border); border-left: 3px solid var(--violet); border-radius: 10px; background: var(--bg-hl); padding: 12px 14px; font-size: 12.5px; animation: pop .25s ease-out; }
+.wt-agent-h { display: flex; align-items: center; gap: 8px; font: 600 .7rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--violet); margin-bottom: 8px; }
+.wt-agent-h .dot { background: var(--violet); }
+.wt-agent .call { display: block; font: 600 12.5px var(--mono); color: var(--strong); }
+.wt-agent .res { margin: 6px 0 0; font-variant-ligatures: none; font: 11.5px/1.5 var(--mono); color: var(--muted); white-space: pre-wrap; word-break: break-word; max-height: 15em; overflow: auto; }
+.wt-agent .jk { color: var(--blue); } .wt-agent .js { color: var(--green); } .wt-agent .jn { color: var(--orange); }
+.wt-agent mark { background: color-mix(in oklab, var(--yellow) 35%, transparent); color: inherit; border-radius: 2px; }

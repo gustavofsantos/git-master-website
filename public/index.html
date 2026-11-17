@@ -49,6 +49,7 @@
   .trust { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 40px; margin: 30px 0 0; padding: 0; list-style: none; }
   @media (max-width: 720px) { .trust { grid-template-columns: 1fr; } }
   .trust li { padding: 14px 0; border-top: 1px solid var(--border); } .trust b { color: var(--strong); display: block; } .trust span { color: var(--muted); font-size: .95rem; }
+  .wt-intro { color: var(--muted); font-size: 1.05rem; max-width: 46rem; margin: 0 0 28px; }
   footer { border-top: 1px solid var(--border); padding: 36px 0 60px; color: var(--muted); font-size: .9rem; } footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; } footer a { color: var(--muted); } footer .sp { flex: 1; }
 </style>
 </head>
@@ -58,7 +59,7 @@
 <header class="nav"><div class="wrap">
   <a class="brand" href="#"><svg><use href="#logo"/></svg>GitMaster</a>
   <nav aria-label="Primary">
-    <a class="hide-s" href="#loop">Review loop</a><a class="hide-s" href="#stacks">Stacks</a><a class="hide-s" href="#threads">Threads</a><a class="hide-s" href="#open">Open source</a>
+    <a class="hide-s" href="#walkthroughs">Walkthroughs</a><a class="hide-s" href="#loop">Review loop</a><a class="hide-s" href="#stacks">Stacks</a><a class="hide-s" href="#threads">Threads</a><a class="hide-s" href="#open">Open source</a>
     <a href="https://docs.gitmaster.dev/">Docs</a><a href="https://github.com/gustavofsantos/git-master">GitHub</a>
     <button class="tbtn" data-theme-toggle aria-label="Toggle light and dark theme">◐</button>
   </nav>
@@ -70,12 +71,18 @@
     <div class="pills"><span class="pill"><i></i>Free</span><span class="pill"><i></i>Open source · Apache-2.0</span><span class="pill"><i></i>Written in Rust</span></div>
     <h1>The Git client for the age of AI agents.</h1>
     <p class="lede">Let agents write code and stay accountable for it. The agent proposes, you approve, and GitMaster records what really happened. Native, fast, and local-first.</p>
-    <div class="cta"><a class="btn primary" href="#install">Install GitMaster</a><a class="btn" href="https://github.com/gustavofsantos/git-master">★ View source on GitHub</a></div>
+    <div class="cta"><a class="btn primary" href="#install">Install GitMaster</a><a class="btn" href="#walkthroughs">▶ See it work</a><a class="btn" href="https://github.com/gustavofsantos/git-master">★ View source on GitHub</a></div>
     <div class="install" id="install"><div class="term"><span class="p">$</span><code id="cmd">curl -fsSL https://gitmaster.dev/install.sh | sh</code><button data-copy="#cmd">copy</button></div>
     <div class="sub">Linux x86_64 and arm64. On macOS, <a href="https://docs.gitmaster.dev/getting-started/installation/">build from source</a>. Only needs <code>git</code>. No account.</div></div>
     <div class="hero-demo" id="loop"><div data-demo="review"></div></div>
   </div>
 </div>
+
+<section id="walkthroughs"><div class="wrap">
+  <span class="kicker">Walkthroughs · recorded from the real app</span><h2>See how it works, step by step.</h2>
+  <p class="wt-intro">Every screen below was captured from GitMaster's terminal companion and command line, running on real repositories. The agent's side is answered by GitMaster's real MCP server, the one Claude Code talks to.</p>
+  <div data-walkthroughs></div>
+</div></section>
 
 <section id="stacks"><div class="wrap row2">
   <div class="txt"><span class="kicker">Stacked branches · preview</span><h2>Small branches that stay stacked.</h2>
@@ -116,5 +123,7 @@
 </main>
 <footer><div class="wrap"><a class="brand" href="#"><svg><use href="#logo"/></svg>GitMaster</a><span>Apache-2.0 licensed</span><span class="sp"></span><a href="https://docs.gitmaster.dev/">Docs</a><a href="https://github.com/gustavofsantos/git-master">GitHub</a><a href="https://github.com/gustavofsantos/git-master/releases">Releases</a></div></footer>
 <script src="assets/demos.js"></script>
+<script src="assets/walkthroughs-data.js"></script>
+<script src="assets/walkthroughs.js"></script>
 </body>
 </html>
